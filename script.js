@@ -79,3 +79,92 @@ document.addEventListener("keydown", function (e) {
 
 
 // ! Smooth Scrolling 
+
+const btnToScroll = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+const section2 = document.querySelector('#section--2');
+const section3 = document.querySelector('#section--3');
+
+// * Modern method: scrollIntoView({behavior: 'smooth'}) used for smooth scrolling 
+
+btnToScroll.addEventListener(
+  'click', () => {
+    section1.scrollIntoView({ behavior: 'smooth' });
+  }
+);
+
+// * Old school way: Calculate the top and left position of the section, use scrollTo()
+
+// btnToScroll.addEventListener(
+//   'click', () => {
+
+//     const section1Coords = section1.getBoundingClientRect();
+
+//     window.scrollTo(
+//       {
+//         left: section1Coords.left + window.scrollX,
+//         top: section1Coords.top + window.scrollY,
+//         behavior: 'smooth'
+//       }
+//     )
+//   }
+// ); 
+
+// const featureNavLink = document.querySelector('.nav__link_features');
+// const operationNavLink = document.querySelector('.nav__link_operations');
+// const testimonialsNavLink = document.querySelector('.nav__link_testimonials');
+
+// featureNavLink.addEventListener(
+//   'click', (e) => {
+//     e.preventDefault();
+//     section1.scrollIntoView({ behavior: 'smooth' });
+//   }
+// )
+
+// operationNavLink.addEventListener(
+//   'click', (e) => {
+//     e.preventDefault();
+//     section2.scrollIntoView({ behavior: 'smooth' });
+//   }
+// )
+
+// testimonialsNavLink.addEventListener(
+//   'click', (e) => {
+//     e.preventDefault();
+//     section3.scrollIntoView({ behavior: 'smooth' });
+//   }
+// )
+
+// * Optimized
+
+// document.querySelectorAll('.nav__link').forEach((link) => {
+//   link.addEventListener(
+//     'click', (event) => {
+//       event.preventDefault();
+//       const id = link.getAttribute('href');
+
+//       document.querySelector(id).scrollIntoView(
+//         {
+//           behavior: 'smooth'
+//         }
+//       )
+//     }
+//   )
+// });
+
+// * Above method not optimal when there are large number of elements 
+// * Event Delegation to be used 
+
+// * Steps for Event Delegation: 1) Add common listener to common parent 2) Determine which element triggered the event 
+
+document.querySelector('.nav__links').addEventListener(
+  'click', (event) => {
+    event.preventDefault();
+    if (event.target.classList.contains('nav__link')) {
+      const id = event.target.getAttribute('href');
+      document.querySelector(id).scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  }
+);
