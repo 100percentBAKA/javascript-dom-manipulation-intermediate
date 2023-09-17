@@ -26,7 +26,7 @@ html {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 300;
   color: #444;
   line-height: 1.9;
@@ -39,6 +39,7 @@ body {
   border-top: 1px solid #ddd;
 
   transition: transform 1s, opacity 1s;
+  /* Important for reveal on scroll */
 }
 
 .section--hidden {
@@ -124,10 +125,11 @@ img {
   z-index: 100;
 }
 
-/* nav and stickly class at the same time */
-.nav.sticky {
+/* nav and sticky class at the same time */
+.sticky {
   position: fixed;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: all 300ms;
 }
 
 .nav__logo {
@@ -216,7 +218,7 @@ h4 {
 
 .highlight::after {
   display: block;
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -470,7 +472,7 @@ h4 {
 }
 
 .testimonial::before {
-  content: '\201C';
+  content: "\201C";
   position: absolute;
   top: -5.7rem;
   left: -6.8rem;

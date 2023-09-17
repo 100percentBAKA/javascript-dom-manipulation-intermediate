@@ -168,3 +168,97 @@ document.querySelector('.nav__links').addEventListener(
     }
   }
 );
+
+
+// ! STICKY NAV BAR 
+
+// * 1) Scroll property 
+
+const navPanel = document.querySelector('.nav');
+const navHeight = navPanel.getBoundingClientRect().height;
+const section1Coords = section1.getBoundingClientRect();
+const header = document.querySelector('.header');
+
+// window.addEventListener(
+//   'scroll', () => {
+//     // console.log(`-----${section1Coords.top}-----`)
+//     // console.log(window.scrollY);
+
+//     if (window.scrollY > section1Coords.top) {
+//       navPanel.classList.add('sticky');
+//     }
+//     else {
+//       navPanel.classList.remove('sticky');
+//     }
+//   }
+// );
+
+// * 2) Intersection Observer API 
+
+// const obsCallback = function (entries, observer) {
+// * entries --> array of threshold values
+// * observer --> observer object
+//   entries.forEach((entry) => {
+//     console.log(entry);
+//   });
+// }
+
+// const obsOptions = {
+//   root: null, // * null --> Observes the view port 
+//   threshold: [0, 0.2], // * percent of intersection at which the obsCallback function is called 
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// * Intersection Observer takes a call back function and an options object as parameter
+
+// observer.observe(section1);
+// * section1 --> target element 
+// * whenever the target element intersects the root element by a certain threshold, the obsCallback function is triggered 
+
+const obsCallback = function (entries, observer) {
+  entries.forEach((entry) => {
+    console.log(entry);
+    if (!entry.isIntersecting) {
+      navPanel.classList.add('sticky');
+    }
+    else {
+      navPanel.classList.remove('sticky');
+    }
+  })
+}
+
+const obsOptions = {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`
+  // * rootMargin applies Visual margin '-ve --> above' '+ve --> below'
+}
+
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+observer.observe(header);
+
+
+// ! REVEAL ON SCROLL 
+
+const sectionObsCallback = function (entries) {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.remove('section--hidden');
+    }
+  });
+}
+
+const sectionObserver = new IntersectionObserver(sectionObsCallback, {
+  root: null,
+  threshold: 0.25
+})
+
+const sections = document.querySelectorAll('.section').forEach(
+  (section) => {
+    sectionObserver.observe(section);
+  }
+);
+
+
+// ! LAZY LOADING 
+
