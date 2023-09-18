@@ -250,7 +250,7 @@ const sectionObsCallback = function (entries) {
 
 const sectionObserver = new IntersectionObserver(sectionObsCallback, {
   root: null,
-  threshold: 0.25
+  threshold: 0.20
 })
 
 const sections = document.querySelectorAll('.section').forEach(
@@ -262,3 +262,22 @@ const sections = document.querySelectorAll('.section').forEach(
 
 // ! LAZY LOADING 
 
+const featureImgCallback = function (entries) {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.remove('lazy-img');
+
+      // * replace src with data-src 
+      entry.target.src = entry.target.dataset.src;
+    }
+  })
+}
+
+const featureImageObserver = new IntersectionObserver(featureImgCallback, {
+  root: null,
+  threshold: 0.5
+});
+
+const images = document.querySelectorAll('.features__img').forEach((image) => {
+  featureImageObserver.observe(image);
+});
