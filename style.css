@@ -567,8 +567,13 @@ h4 {
 
 .footer__link {
   font-size: 1.6rem;
-  color: #eee;
+  color: rgba(238, 238, 238, 0.7);
   text-decoration: none;
+  transition: all 300ms;
+}
+
+.footer__link:hover {
+  color: rgba(238, 238, 238, 0.95);
 }
 
 .footer__logo {
