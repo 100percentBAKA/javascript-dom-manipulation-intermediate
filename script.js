@@ -300,7 +300,16 @@ const createDots = function () {
   });
 }
 
+const dotActive = function (slide = 0) {
+  document.querySelectorAll('.dots__dot').forEach((dot) => {
+    dot.classList.remove('dots__dot--active');
+
+    document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
+  });
+}
+
 const gotoSlide = function (currentSlide) {
+  dotActive(currentSlide);
   slides.forEach((slide, index) => {
     slide.style.transform = `translateX(${(index - currentSlide) * 100}%)`;
   });
@@ -320,14 +329,6 @@ const prevSlide = function () {
     currentSlide = slides.length - 1;
   }
   gotoSlide(currentSlide);
-}
-
-const dotActive = function (slide = 0) {
-  document.querySelectorAll('.dots__dot').forEach((dot) => {
-    dot.classList.remove('dots__dot--active');
-
-    document.querySelector(`.dots__dot[data-slide="${slide}"]`).classList.add('dots__dot--active');
-  });
 }
 
 // * Create dots
@@ -390,4 +391,4 @@ opBtnCtn.addEventListener(
     const button = event.target.dataset.tab;
     opBtnActive(button);
   }
-);
+);  
